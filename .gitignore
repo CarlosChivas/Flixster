@@ -1,0 +1,4 @@
+**/*/res/values/secrets.xml
+
+# Project exclude paths
+/.gradle/
