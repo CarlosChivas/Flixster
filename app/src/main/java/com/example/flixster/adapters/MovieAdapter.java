@@ -53,9 +53,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         Log.d("MovieAdapter", "onCreateViewHolder");
         View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
-
-        //movieView.setBackgroundColor(Color.parseColor("#D6D0CE"));
-
         return new ViewHolder(movieView);
     }
 
@@ -91,7 +88,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             ivPoster = itemView.findViewById(R.id.ivPoster);
             btnInfo = itemView.findViewById(R.id.btnInfo);
             view = itemView;
-            //itemView.setBackgroundColor();
         }
 
         public void bind(Movie movie,Integer position) {

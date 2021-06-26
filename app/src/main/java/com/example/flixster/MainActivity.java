@@ -60,13 +60,10 @@ public class MainActivity extends Activity {
     List<String> colors = new ArrayList<String>();
 
 
-    //private ResultProfileBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-      //  ActivitySimpleBinding binding = ActivitySimpleBinding.inflate(getLayoutInflater());
 
         setContentView(R.layout.activity_main);
         RecyclerView rvMovies = findViewById(R.id.rvMovies);
@@ -120,26 +117,6 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "onFailure");
             }
         });
-
-        /*btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String todoItem = etItem.getText().toString();
-                //Add item to the model
-                if(todoItem.equals("")){
-                    //If field is empty, we create a message but we not save nothing
-                    Toast.makeText(getApplicationContext(), "You need to write something", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    items.add(todoItem);
-                    //Notify adapter that an item is inserted
-                    itemsAdapter.notifyItemInserted(items.size()-1);
-                    etItem.setText("");
-                    Toast.makeText(getApplicationContext(), "Item was added", Toast.LENGTH_SHORT).show();
-                    saveItems();
-                }
-            }
-        });*/
     }
 
     public void infoMovie(int position){
@@ -161,13 +138,9 @@ public class MainActivity extends Activity {
         rbVoteAverage.setRating(voteAverage / 2.0f);
         LayerDrawable stars = (LayerDrawable) rbVoteAverage.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-        //rbVoteAverage.setBackgroundColor(Color.parseColor("#D6D0CE"));
 
         Glide.with(this).load(movies.get(position).getPosterPath()).placeholder(R.drawable.flicks_movie_placeholder).transform(new CircleCrop()).into(imageView);
-        //buttonDone = editTextView.findViewById(R.id.btnEdit);
 
-        //etEdit = editTextView.findViewById(R.id.textEdited);
-        //etEdit.setText(items.get(posicion));
         dialogBuilder.setView(infoMovieView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -175,11 +148,6 @@ public class MainActivity extends Activity {
         close_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //items.set(posicion, etEdit.getText().toString());
-                //Notify adapter that an item was changed
-                //itemsAdapter.notifyDataSetChanged();
-                //saveItems();
-                //Toast.makeText(getApplicationContext(), "Item was updated", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -187,10 +155,32 @@ public class MainActivity extends Activity {
         play_trailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MovieTrailerActivity.class);
-                String strName = "videoURL";
-                i.putExtra(movies.get(position).getVideoURL(), strName);
-                startActivity(i);
+                AsyncHttpClient client = new AsyncHttpClient();
+                JSONArray results2;
+                client.get("https://api.themoviedb.org/3/movie/"+movies.get(position).getId()+"/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US", new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int i, Headers headers, JSON json) {
+                        Log.d(TAG, "onSuccess");
+                        JSONObject jsonObject = json.jsonObject;
+                        try {
+                            JSONArray results = jsonObject.getJSONArray("results");
+                            JSONObject videoURLJSON = (JSONObject) results.get(0);
+                            Intent intent = new Intent(getApplicationContext(), MovieTrailerActivity.class);
+
+                            intent.putExtra("videoURL", videoURLJSON.getString("key"));
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            Log.e(TAG, "Json exception");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                        Log.d(TAG, "onFailure");
+                    }
+                });
+
             }
         });
 

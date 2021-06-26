@@ -37,16 +37,15 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                 toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // perform whatever you want on back arrow click
                         Intent intent = new Intent(MovieTrailerActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 });
             }
-        // temporary test video id -- TODO replace with movie trailer video id
-        final String videoId = "FqAjVAf5fNA";
-        //final String videoId = getIntent().getExtras().getString("videoURL");
+
+        final String videoId = getIntent().getExtras().getString("videoURL");
+        Log.i("MovieTrailerActivity", videoId);
 
 
         // resolve the player view from the layout
