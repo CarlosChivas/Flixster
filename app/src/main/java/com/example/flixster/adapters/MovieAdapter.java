@@ -21,6 +21,7 @@ import com.example.flixster.models.Movie;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
@@ -33,11 +34,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     Context context;
     List<Movie> movies;
+    List<String> colors = new ArrayList<String>();
 
     public MovieAdapter(Context context, List<Movie> movies, OnClickListener clickListener) {
         this.context = context;
         this.movies = movies;
         this.clickListener = clickListener;
+        this.colors.add("#06B2BB");
+        this.colors.add("#FDD219");
+        this.colors.add("#F78828");
+        this.colors.add("#FA5456");
     }
 
     //Usually involves inflating a layout from XML and returning the holder
@@ -48,7 +54,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         Log.d("MovieAdapter", "onCreateViewHolder");
         View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
 
-        movieView.setBackgroundColor(Color.parseColor("#D6D0CE"));
+        //movieView.setBackgroundColor(Color.parseColor("#D6D0CE"));
+
         return new ViewHolder(movieView);
     }
 
@@ -58,8 +65,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         Log.d("MovieAdapter", "onBindViewHolder" + position);
         //Get the movie at the position
         Movie movie = movies.get(position);
+
         //Bind the movie data into the VH
-        holder.bind(movie);
+        holder.bind(movie, position);
     }
 
     //Return the total count of items in the list
@@ -74,6 +82,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         TextView tvOverview;
         ImageView ivPoster;
         ImageButton btnInfo;
+        View view;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -81,11 +90,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             btnInfo = itemView.findViewById(R.id.btnInfo);
+            view = itemView;
+            //itemView.setBackgroundColor();
         }
 
-        public void bind(Movie movie) {
+        public void bind(Movie movie,Integer position) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
+            view.setBackgroundColor(Color.parseColor(colors.get(position - ((position/4)*4))));
+
             String imageURL;
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 //imageURL = movie.getBackdropPath();

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     android:paddingBottom="50dp">
 
     <ImageView
@@ -12,7 +11,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,8 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:maxWidth="150dp"
+        android:width="270dp"
+        android:maxWidth="270dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,39 +39,49 @@
         android:id="@+id/info_description"
         android:layout_width="311dp"
         android:layout_height="200dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
+        android:maxHeight="200dp"
         android:text="TextView"
         android:textColor="#000000"
         app:layout_constrainedHeight="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="wrap"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbVoteAverage" />
+        app:layout_constraintTop_toBottomOf="@+id/play_trailer" />
 
     <ImageButton
         android:id="@+id/info_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:drawable/ic_menu_close_clear_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_description"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:layout_constraintTop_toBottomOf="@+id/info_description" />
 
     <RatingBar
         android:id="@+id/rbVoteAverage"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="#837C7C"
+        android:layout_marginTop="52dp"
         android:numStars="5"
-
+        android:scaleX="2"
+        android:scaleY="2"
+        android:stepSize="5.0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info_image" />
+
+    <ImageButton
+        android:id="@+id/play_trailer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@android:drawable/ic_media_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rbVoteAverage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

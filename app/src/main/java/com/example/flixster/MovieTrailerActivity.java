@@ -1,7 +1,12 @@
 package com.example.flixster;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toolbar;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -13,8 +18,36 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_trailer);
 
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            ImageButton back = findViewById(R.id.back_land);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MovieTrailerActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+        else{
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                setActionBar(toolbar);
+                getActionBar().setDisplayShowTitleEnabled(false);
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // perform whatever you want on back arrow click
+                        Intent intent = new Intent(MovieTrailerActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
         // temporary test video id -- TODO replace with movie trailer video id
-        final String videoId = "tKodtNFpzBA";
+        final String videoId = "FqAjVAf5fNA";
+        //final String videoId = getIntent().getExtras().getString("videoURL");
+
 
         // resolve the player view from the layout
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
@@ -36,4 +69,5 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
             }
         });
     }
+
 }

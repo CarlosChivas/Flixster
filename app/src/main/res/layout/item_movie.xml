@@ -48,7 +48,10 @@
         android:id="@+id/btnInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="21dp"
         android:layout_toEndOf="@+id/tvTitle"
-        app:srcCompat="@android:drawable/ic_menu_info_details" />
+        android:background="@android:drawable/ic_menu_info_details" />
+
 </RelativeLayout>
